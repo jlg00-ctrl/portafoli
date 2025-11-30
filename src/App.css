@@ -1,0 +1,698 @@
+/* ARCHIVO: App.css - Estilos principales de la aplicación */
+/* ALUMNO ASIX: Jorge Lopez - Estilización web y diseño responsive */
+
+/* RESET ABSOLUTO - Normalización de estilos entre navegadores */
+/* OBJETIVO: Eliminar diferencias por defecto entre navegadores */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box; /* Modelo de caja consistente */
+}
+
+/* ESTRUCTURA BASE - Configuración del viewport y tipografía */
+html, body, #root {
+  width: 100%;
+  height: 100%; /* Ocupar toda la altura visible */
+}
+
+body {
+  background: #0f172a; /* Color de fondo oscuro - Tema profesional */
+  font-family: 'Segoe UI Emoji', 'Segoe UI Symbol', 'Apple Color Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Fuentes escalables */
+  line-height: 1.6; /* Mejor legibilidad */
+  color: #e2e8f0; /* Color de texto claro para contraste */
+}
+
+/* CONTENEDOR PRINCIPAL - Layout flex para estructura de página */
+.app {
+  background: #1e293b; /* Fondo del contenido */
+  width: 100%;
+  min-height: 100vh; /* Mínimo altura de viewport */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* Header -> Content -> Footer */
+}
+
+/* NAVBAR PROFESIONAL - Barra de navegación sticky */
+.navbar {
+  background: rgba(15, 23, 42, 0.95); /* Fondo semitransparente */
+  backdrop-filter: blur(10px); /* Efecto glassmorphism */
+  padding: 1rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid #334155; /* Separación sutil */
+  position: sticky; /* Navegación siempre visible */
+  top: 0;
+  z-index: 1000; /* Por encima de otros elementos */
+}
+
+/* LOGO CON ENGRANAJES - Animación CSS para identidad visual */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gear {
+  position: absolute;
+  border-radius: 50%;
+  animation: rotate 10s linear infinite; /* Animación continua */
+}
+
+.gear.large {
+  width: 30px;
+  height: 30px;
+  background: conic-gradient(from 0deg, transparent, #60a5fa, transparent); /* Gradiente dinámico */
+  border: 2px solid #60a5fa;
+}
+
+.gear.small {
+  width: 20px;
+  height: 20px;
+  background: conic-gradient(from 180deg, transparent, #a78bfa, transparent);
+  border: 2px solid #a78bfa;
+  top: 5px;
+  left: 15px;
+  animation-direction: reverse; /* Contrarrotación */
+}
+
+.gear.large::before,
+.gear.small::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #1e293b; /* Centro del engranaje */
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.gear.large::before {
+  width: 12px;
+  height: 12px;
+}
+
+.gear.small::before {
+  width: 8px;
+  height: 8px;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); } /* Rotación completa */
+}
+
+.logo-text {
+  color: #60a5fa;
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: -0.5px; /* Mejor kerning */
+}
+
+/* BOTONES DE NAVEGACIÓN - Interactividad y feedback visual */
+.nav-buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-buttons button {
+  background: transparent;
+  color: #94a3b8;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-buttons button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+  transition: left 0.5s; /* Efecto de barrida */
+}
+
+.nav-buttons button:hover::before {
+  left: 100%; /* Animación completa */
+}
+
+.nav-buttons button:hover {
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.nav-buttons button:active {
+  transform: scale(0.98); /* Feedback al hacer click */
+}
+
+/* CONTENIDO PRINCIPAL - Área de contenido central */
+.main-content {
+  padding: 5rem 3rem;
+  width: 100%;
+  max-width: 1400px; /* Ancho máximo para legibilidad */
+  margin: 0 auto; /* Centrado */
+  flex: 1; /* Ocupa espacio disponible */
+}
+
+.page {
+  width: 100%;
+  text-align: center;
+}
+
+.page h1 {
+  color: #60a5fa;
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.page p {
+  color: #94a3b8;
+  font-size: 1.3rem;
+  margin-bottom: 3rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto; /* Centrado con ancho limitado */
+}
+
+/* HERO CON FOTO DE PERFIL - Sección de presentación principal */
+.hero-with-photo {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid #334155;
+  border-radius: 20px;
+  margin: 3rem auto;
+  max-width: 1000px;
+  backdrop-filter: blur(10px); /* Efecto cristal */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Sombra pronunciada */
+  overflow: hidden;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 3rem;
+}
+
+.profile-image {
+  flex-shrink: 0; /* Evita que la imagen se reduzca */
+}
+
+.profile-image img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%; /* Imagen circular */
+  object-fit: cover; /* Ajuste de imagen */
+  border: 4px solid #60a5fa;
+  box-shadow: 0 15px 35px rgba(96, 165, 250, 0.3); /* Sombra azul */
+}
+
+.profile-info {
+  flex: 1; /* Ocupa espacio restante */
+  text-align: left;
+}
+
+.profile-info h1 {
+  color: #60a5fa;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.profile-title {
+  color: #cbd5e1 !important;
+  font-size: 1.4rem !important;
+  font-weight: 600;
+  margin-bottom: 1rem !important;
+}
+
+.profile-subtitle {
+  color: #94a3b8 !important;
+  font-size: 1.2rem !important;
+  margin-bottom: 2rem !important;
+  line-height: 1.6 !important;
+}
+
+.profile-info button {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.profile-info button:hover {
+  transform: translateY(-3px); /* Efecto elevación */
+  box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+}
+
+/* PROYECTOS PROFESIONALES - Grid de tarjetas técnicas */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Grid responsive */
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 4rem auto;
+  width: 100%;
+}
+
+.project-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid #334155;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #60a5fa, transparent); /* Línea decorativa */
+}
+
+.project-card:hover {
+  transform: translateY(-8px); /* Efecto flotante */
+  border-color: #60a5fa;
+  box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+}
+
+.project-card h3 {
+  color: #60a5fa;
+  margin-bottom: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.project-card p {
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+/* HABILIDADES - Categorías de skills técnicas */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  max-width: 1000px;
+  margin: 3rem auto;
+}
+
+.skill-category {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid #334155;
+  backdrop-filter: blur(10px);
+}
+
+.skill-category h3 {
+  color: #60a5fa;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.skill-item {
+  background: rgba(59, 130, 246, 0.1);
+  color: #60a5fa;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px; /* Pastillas redondeadas */
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+  background: rgba(59, 130, 246, 0.2);
+  transform: translateY(-2px);
+}
+
+/* SECCIONES DE CONTACTO Y NEWSLETTER - Formularios y info */
+.contact-info, .newsletter-form {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+  padding: 3.5rem;
+  border-radius: 16px;
+  margin: 3rem auto;
+  max-width: 700px;
+  width: 100%;
+  border: 1px solid #334155;
+  backdrop-filter: blur(10px);
+}
+
+.contact-info p {
+  font-size: 1.2rem;
+  margin: 1.5rem 0;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-weight: 500;
+}
+
+.newsletter-form input {
+  width: 100%;
+  max-width: 400px;
+  padding: 1.2rem 1.5rem;
+  font-size: 1rem;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid #475569;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  color: #e2e8f0;
+}
+
+.newsletter-form input:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1); /* Outline accesible */
+}
+
+.newsletter-form input::placeholder {
+  color: #64748b;
+}
+
+.newsletter-form button {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+}
+
+.newsletter-note {
+  font-size: 0.9rem !important;
+  color: #94a3b8 !important;
+  margin-top: 1rem !important;
+  font-style: italic;
+}
+
+/* EJEMPLO DE NEWSLETTER - Maquetación de contenido editorial */
+.newsletter-example {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid #334155;
+  border-radius: 16px;
+  margin: 3rem auto;
+  max-width: 800px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.newsletter-header {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  padding: 2.5rem;
+  text-align: center;
+  color: white;
+}
+
+.newsletter-header h2 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.newsletter-header p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.newsletter-content {
+  padding: 2.5rem;
+}
+
+.newsletter-article {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #334155; /* Separador de artículos */
+}
+
+.newsletter-article:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.newsletter-article h3 {
+  color: #60a5fa;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.newsletter-article p {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.newsletter-footer {
+  background: rgba(15, 23, 42, 0.8);
+  padding: 2rem;
+  text-align: center;
+  border-top: 1px solid #334155;
+}
+
+.newsletter-footer p {
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.newsletter-footer button {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.newsletter-footer button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+}
+
+/* FOOTER PROFESIONAL - Información de contacto y derechos */
+.footer {
+  background: rgba(15, 23, 42, 0.95);
+  border-top: 1px solid #334155;
+  padding: 2.5rem 2rem;
+  margin-top: auto; /* Empuja el footer al final */
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-content p {
+  color: #94a3b8;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-links span {
+  color: #60a5fa;
+  font-size: 0.9rem;
+}
+
+/* ICONOS SOCIALES DEL FOOTER - Redes sociales con hover effects */
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.social-icon {
+  color: #94a3b8;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.social-icon:hover {
+  color: #60a5fa;
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* Colores específicos para cada icono al hacer hover */
+.social-icon:nth-child(1):hover { /* Instagram */
+  color: #E4405F;
+}
+
+.social-icon:nth-child(2):hover { /* GitHub */
+  color: #FC6D26;
+}
+
+.social-icon:nth-child(3):hover { /* WhatsApp */
+  color: #25D366;
+}
+
+/* RESPONSIVE DESIGN - Adaptación a dispositivos móviles */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+  }
+  
+  .nav-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .nav-buttons button {
+    width: 100%; /* Botones de ancho completo en móvil */
+  }
+  
+  .page h1 {
+    font-size: 2.5rem; /* Títulos más pequeños */
+  }
+  
+  .main-content {
+    padding: 3rem 1.5rem; /* Menos padding en móvil */
+  }
+  
+  .profile-section {
+    flex-direction: column; /* Stack vertical en móvil */
+    text-align: center;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+  }
+  
+  .profile-info {
+    text-align: center;
+  }
+  
+  .profile-info h1 {
+    text-align: center;
+  }
+  
+  .profile-image img {
+    width: 150px;
+    height: 150px; /* Imagen más pequeña en móvil */
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr; /* Una columna en móvil */
+    gap: 2rem;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .contact-info, .newsletter-form {
+    padding: 2.5rem 1.5rem;
+    margin: 2rem auto;
+  }
+  
+  .newsletter-example {
+    margin: 2rem auto;
+  }
+  
+  .newsletter-header {
+    padding: 2rem 1.5rem;
+  }
+  
+  .newsletter-content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .newsletter-article {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .footer {
+    padding: 2rem 1.5rem;
+  }
+  
+  .footer-links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .footer-social {
+    gap: 1rem;
+    margin: 0.8rem 0;
+  }
+  
+  .social-icon {
+    font-size: 1.3rem; /* Iconos más pequeños */
+  }
+}
