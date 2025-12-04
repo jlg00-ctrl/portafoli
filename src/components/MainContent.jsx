@@ -1,16 +1,103 @@
 // COMPONENTE: MainContent - Contenido principal dinámico del portfolio
-// ALUMNO ASIX: Jorge Lopez - Gestión de contenido dinámico y routing
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const MainContent = ({ currentPage, setCurrentPage }) => {
+const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
+  // 🔹 Estado para futura carga dinámica de proyectos
+  const [projects, setProjects] = useState([
+    {
+      id: 1,
+      title: 'Script de Backup Automatizado',
+      description: 'Desarrollo de script en Bash para backups automáticos de configuraciones de servidores. Programación con cron y compresión de archivos.',
+      tech: ['Bash', 'Cron', 'Linux'],
+      featured: true
+    },
+    {
+      id: 2,
+      title: 'Monitorización de Servidores',
+      description: 'Implementación de sistema de monitorización básico con alertas por email. Uso de herramientas como htop y configuración de logs.',
+      tech: ['htop', 'Email alerts', 'Logging'],
+      featured: true
+    },
+    {
+      id: 3,
+      title: 'Gestión de Usuarios Active Directory',
+      description: 'Automatización de creación y gestión de usuarios en AD. Scripts PowerShell para altas, bajas y modificaciones de cuentas.',
+      tech: ['PowerShell', 'Active Directory', 'Automation'],
+      featured: true
+    },
+    {
+      id: 4,
+      title: 'Web Corporativa DigitalEvolution',
+      description: 'Desarrollo frontend de la página web de la empresa usando React. Diseño responsive y optimización para SEO.',
+      tech: ['React', 'CSS', 'SEO'],
+      featured: true
+    }
+  ]);
+
+  // 🔹 Estado para manejar formulario del newsletter
+  const [email, setEmail] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  // 🔹 Estado para habilidades
+  const [skills, setSkills] = useState({
+    sistemas: [],
+    desarrollo: []
+  });
+
+  // 🔹 useEffect 1: Carga inicial de datos
+  useEffect(() => {
+    console.log('📂 Datos de proyectos cargados:', projects.length);
+    
+    // Cargar habilidades iniciales
+    setSkills({
+      sistemas: [
+        'Windows Server', 'Active Directory', 'PowerShell', 
+        'Bash Scripting', 'Monitorización', 'Backup & Recovery'
+      ],
+      desarrollo: [
+        'React', 'JavaScript', 'HTML/CSS', 
+        'AWS', 'Docker', 'Git'
+      ]
+    });
+  }, []);
+
+  // 🔹 useEffect 2: Efecto al cambiar de página
+  useEffect(() => {
+    // Scroll suave al cambiar de página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Guardar la última página visitada
+    localStorage.setItem('lastVisitedPage', currentPage);
+    
+    // Log para analíticas (invisible)
+    if (visitCount) {
+      console.log(`👤 Visita ${visitCount} - Página: ${currentPage}`);
+    }
+  }, [currentPage, visitCount]);
+
+  // 🔹 Función para manejar suscripción al newsletter
+  const handleSubscribe = () => {
+    if (email && email.includes('@')) {
+      // En un futuro aquí iría la llamada a la API
+      localStorage.setItem('newsletterEmail', email);
+      setIsSubscribed(true);
+      console.log('✅ Email guardado para newsletter:', email);
+      
+      // Navegación después de 500ms (mejor UX)
+      setTimeout(() => {
+        setCurrentPage('ejemplo-newsletter');
+      }, 500);
+    } else {
+      console.log('❌ Email no válido');
+    }
+  };
+
   // FUNCIÓN: renderPage - Renderizado condicional basado en la página actual
-  // TÉCNICA: Switch statement para gestión de vistas (similar a routing en servidores)
   const renderPage = () => {
     switch(currentPage) {
       case 'inicio':
         return (
           <div className="page">
-            {/* HERO SECTION: Presentación personal con foto y call-to-action */}
             <div className="hero-with-photo">
               <div className="profile-section">
                 <div className="profile-image">
@@ -20,8 +107,12 @@ const MainContent = ({ currentPage, setCurrentPage }) => {
                   <h1>¡Hola! soy Jorge 👋</h1>
                   <p className="profile-title">Administrador de Sistemas en DigitalEvolution S.A</p>
                   <p className="profile-subtitle">Especialista en infraestructuras IT y soluciones cloud</p>
-                  {/* BOTÓN: Navegación a proyectos - UX de funnel */}
                   <button onClick={() => setCurrentPage('proyectos')}>Ver mis proyectos</button>
+                  
+                  {/* Contador invisible de visitas */}
+                  <div style={{display: 'none'}}>
+                    <p>Visitas totales: {visitCount || 0}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -32,24 +123,20 @@ const MainContent = ({ currentPage, setCurrentPage }) => {
         return (
           <div className="page">
             <h1>Mis Proyectos 🚀</h1>
-            {/* GRID DE PROYECTOS: Muestra trabajos técnicos realizados */}
+            {/* Ahora usamos el estado projects */}
             <div className="projects-grid">
-              <div className="project-card">
-                <h3>Script de Backup Automatizado</h3>
-                <p>Desarrollo de script en Bash para backups automáticos de configuraciones de servidores. Programación con cron y compresión de archivos.</p>
-              </div>
-              <div className="project-card">
-                <h3>Monitorización de Servidores</h3>
-                <p>Implementación de sistema de monitorización básico con alertas por email. Uso de herramientas como htop y configuración de logs.</p>
-              </div>
-              <div className="project-card">
-                <h3>Gestión de Usuarios Active Directory</h3>
-                <p>Automatización de creación y gestión de usuarios en AD. Scripts PowerShell para altas, bajas y modificaciones de cuentas.</p>
-              </div>
-              <div className="project-card">
-                <h3>Web Corporativa DigitalEvolution</h3>
-                <p>Desarrollo frontend de la página web de la empresa usando React. Diseño responsive y optimización para SEO.</p>
-              </div>
+              {projects.map(project => (
+                <div key={project.id} className="project-card">
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  {/* Tags preparados para futuro uso */}
+                  <div style={{display: 'none'}}>
+                    {project.tech.map(tech => (
+                      <span key={tech}>{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -58,28 +145,21 @@ const MainContent = ({ currentPage, setCurrentPage }) => {
         return (
           <div className="page">
             <h1>Tecnologías & Habilidades 🛠️</h1>
-            {/* GRID DE HABILIDADES: Organizadas por categorías técnicas */}
             <div className="skills-grid">
               <div className="skill-category">
                 <h3>Administración de Sistemas</h3>
                 <div className="skills-list">
-                  <span className="skill-item">Windows Server</span>
-                  <span className="skill-item">Active Directory</span>
-                  <span className="skill-item">PowerShell</span>
-                  <span className="skill-item">Bash Scripting</span>
-                  <span className="skill-item">Monitorización</span>
-                  <span className="skill-item">Backup & Recovery</span>
+                  {skills.sistemas.map((skill, index) => (
+                    <span key={index} className="skill-item">{skill}</span>
+                  ))}
                 </div>
               </div>
               <div className="skill-category">
                 <h3>Desarrollo & Cloud</h3>
                 <div className="skills-list">
-                  <span className="skill-item">React</span>
-                  <span className="skill-item">JavaScript</span>
-                  <span className="skill-item">HTML/CSS</span>
-                  <span className="skill-item">AWS</span>
-                  <span className="skill-item">Docker</span>
-                  <span className="skill-item">Git</span>
+                  {skills.desarrollo.map((skill, index) => (
+                    <span key={index} className="skill-item">{skill}</span>
+                  ))}
                 </div>
               </div>
             </div>
@@ -90,7 +170,6 @@ const MainContent = ({ currentPage, setCurrentPage }) => {
         return (
           <div className="page">
             <h1>Contacto 📞</h1>
-            {/* INFORMACIÓN DE CONTACTO: Datos profesionales */}
             <div className="contact-info">
               <p>📧 jlg00@iesemilidarder.com</p>
               <p>📱 +34 643 957 615</p>
@@ -105,12 +184,26 @@ const MainContent = ({ currentPage, setCurrentPage }) => {
           <div className="page">
             <h1>Newsletter 📰</h1>
             <p>Suscríbete para recibir noticias mensuales sobre ciberseguridad y administración de sistemas</p>
-            {/* FORMULARIO SIMULADO: Captura de emails (sin backend) */}
+            
             <div className="newsletter-form">
-              <input type="email" placeholder="Tu email" />
-              <button onClick={() => setCurrentPage('ejemplo-newsletter')}>
-                Suscribirme
+              {/* Input controlado por estado */}
+              <input 
+                type="email" 
+                placeholder="Tu email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleSubscribe()}
+              />
+              
+              {/* Botón con estado controlado */}
+              <button 
+                onClick={handleSubscribe}
+                disabled={!email || !email.includes('@')}
+                style={!email || !email.includes('@') ? {opacity: 0.7} : {}}
+              >
+                {isSubscribed ? '✅ Suscrito' : 'Suscribirme'}
               </button>
+              
               <p className="newsletter-note">
                 Al suscribirte, podrás ver un ejemplo del newsletter mensual que recibirás
               </p>
@@ -122,7 +215,6 @@ const MainContent = ({ currentPage, setCurrentPage }) => {
         return (
           <div className="page">
             <h1>Newsletter Mensual DigitalEvolution 📰</h1>
-            {/* EJEMPLO DE NEWSLETTER: Contenido demostrativo */}
             <div className="newsletter-example">
               <div className="newsletter-header">
                 <h2>DigitalEvolution News - Enero 2025</h2>
@@ -165,6 +257,14 @@ const MainContent = ({ currentPage, setCurrentPage }) => {
         return <div>Página no encontrada</div>;
     }
   };
+
+  // 🔹 useEffect adicional: Limpieza al desmontar
+  useEffect(() => {
+    return () => {
+      // Función de limpieza (opcional)
+      console.log('🧹 MainContent desmontado');
+    };
+  }, []);
 
   return (
     <main className="main-content">
