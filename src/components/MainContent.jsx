@@ -76,21 +76,32 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
   }, [currentPage, visitCount]);
 
   // 🔹 Función para manejar suscripción al newsletter
-  const handleSubscribe = () => {
-    if (email && email.includes('@')) {
-      // En un futuro aquí iría la llamada a la API
-      localStorage.setItem('newsletterEmail', email);
-      setIsSubscribed(true);
-      console.log('✅ Email guardado para newsletter:', email);
-      
-      // Navegación después de 500ms (mejor UX)
-      setTimeout(() => {
-        setCurrentPage('ejemplo-newsletter');
-      }, 500);
-    } else {
-      console.log('❌ Email no válido');
-    }
-  };
+const handleSubscribe = () => {
+  // Guardar el email actual
+  const currentEmail = email;
+  
+  // Validar y guardar si es válido
+  if (currentEmail && currentEmail.includes('@')) {
+    localStorage.setItem('newsletterEmail', currentEmail);
+    console.log('✅ Email guardado:', currentEmail);
+    
+    // Mostrar feedback visual breve
+    setIsSubscribed(true);
+    
+    // Limpiar después de 300ms (para que se vea el ✅)
+    setTimeout(() => {
+      setEmail('');
+      setIsSubscribed(false);
+      setCurrentPage('ejemplo-newsletter');
+    }, 300);
+  } else {
+    // Si no hay email válido, navegar igual pero sin guardar
+    setCurrentPage('ejemplo-newsletter');
+    
+    // Limpiar campo
+    setEmail('');
+  }
+};
 
   // FUNCIÓN: renderPage - Renderizado condicional basado en la página actual
   const renderPage = () => {
