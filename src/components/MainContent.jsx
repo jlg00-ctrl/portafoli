@@ -44,6 +44,21 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
     desarrollo: []
   });
 
+  // 🔹 Estado para el formulario de contacto
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    acceptedTerms: false
+  });
+
+  const [isSubmittingContact, setIsSubmittingContact] = useState(false);
+  const [contactSubmitStatus, setContactSubmitStatus] = useState({
+    success: false,
+    error: ''
+  });
+
   // 🔹 useEffect 1: Carga inicial de datos
   useEffect(() => {
     console.log('📂 Datos de proyectos cargados:', projects.length);
@@ -76,32 +91,109 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
   }, [currentPage, visitCount]);
 
   // 🔹 Función para manejar suscripción al newsletter
-const handleSubscribe = () => {
-  // Guardar el email actual
-  const currentEmail = email;
-  
-  // Validar y guardar si es válido
-  if (currentEmail && currentEmail.includes('@')) {
-    localStorage.setItem('newsletterEmail', currentEmail);
-    console.log('✅ Email guardado:', currentEmail);
+  const handleSubscribe = () => {
+    // Guardar el email actual
+    const currentEmail = email;
     
-    // Mostrar feedback visual breve
-    setIsSubscribed(true);
-    
-    // Limpiar después de 300ms (para que se vea el ✅)
-    setTimeout(() => {
-      setEmail('');
-      setIsSubscribed(false);
+    // Validar y guardar si es válido
+    if (currentEmail && currentEmail.includes('@')) {
+      localStorage.setItem('newsletterEmail', currentEmail);
+      console.log('✅ Email guardado:', currentEmail);
+      
+      // Mostrar feedback visual breve
+      setIsSubscribed(true);
+      
+      // Limpiar después de 300ms (para que se vea el ✅)
+      setTimeout(() => {
+        setEmail('');
+        setIsSubscribed(false);
+        setCurrentPage('ejemplo-newsletter');
+      }, 300);
+    } else {
+      // Si no hay email válido, navegar igual pero sin guardar
       setCurrentPage('ejemplo-newsletter');
-    }, 300);
-  } else {
-    // Si no hay email válido, navegar igual pero sin guardar
-    setCurrentPage('ejemplo-newsletter');
+      
+      // Limpiar campo
+      setEmail('');
+    }
+  };
+
+  // 🔹 Función para manejar cambios en el formulario de contacto
+  const handleContactChange = (field, value) => {
+    setContactForm(prev => ({
+      ...prev,
+      [field]: value
+    }));
     
-    // Limpiar campo
-    setEmail('');
-  }
-};
+    // Limpiar mensajes de error al editar
+    if (contactSubmitStatus.error) {
+      setContactSubmitStatus({ success: false, error: '' });
+    }
+  };
+
+  // 🔹 Función para enviar el formulario de contacto
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Validación
+    if (!contactForm.acceptedTerms) {
+      setContactSubmitStatus({ 
+        success: false, 
+        error: 'Debes aceptar los términos para enviar el mensaje' 
+      });
+      return;
+    }
+
+    if (!contactForm.name || !contactForm.email || !contactForm.message) {
+      setContactSubmitStatus({ 
+        success: false, 
+        error: 'Por favor completa los campos requeridos' 
+      });
+      return;
+    }
+
+    setIsSubmittingContact(true);
+    
+    try {
+      // Simulación de envío
+      console.log('📤 Enviando formulario de contacto:', contactForm);
+      
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Éxito
+      setContactSubmitStatus({ success: true, error: '' });
+      
+      // Guardar en localStorage
+      const contacts = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+      contacts.push({
+        ...contactForm,
+        date: new Date().toISOString(),
+        id: Date.now()
+      });
+      localStorage.setItem('contactSubmissions', JSON.stringify(contacts));
+      
+      // Limpiar formulario después de 3 segundos
+      setTimeout(() => {
+        setContactForm({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+          acceptedTerms: false
+        });
+        setContactSubmitStatus({ success: false, error: '' });
+      }, 3000);
+      
+    } catch (error) {
+      setContactSubmitStatus({ 
+        success: false, 
+        error: 'Error al enviar el mensaje. Intenta nuevamente.' 
+      });
+      console.error('❌ Error en formulario:', error);
+    } finally {
+      setIsSubmittingContact(false);
+    }
+  };
 
   // FUNCIÓN: renderPage - Renderizado condicional basado en la página actual
   const renderPage = () => {
@@ -177,18 +269,157 @@ const handleSubscribe = () => {
           </div>
         );
       
-      case 'contacto':
-        return (
-          <div className="page">
-            <h1>Contacto 📞</h1>
-            <div className="contact-info">
-              <p>📧 jlg00@iesemilidarder.com</p>
-              <p>📱 +34 643 957 615</p>
-              <p>🏢 DigitalEvolution S.A</p>
-              <p>💼 Administrador de Sistemas</p>
+
+
+// 🔹 Reemplaza SOLO el caso 'contacto' con este código que coincide con la imagen:
+
+// 🔹 Reemplaza SOLO el caso 'contacto' con este código:
+
+case 'contacto':
+  return (
+    <div className="page contact-page">
+      <div className="contact-wrapper-reverse">
+        {/* Sección izquierda: Información de contacto */}
+        <div className="contact-info-section-left">
+          <div className="contact-info-header-left">
+            <h3 className="contact-info-title-left">Información de contacto</h3>
+            <p className="contact-info-subtitle-left">Contáctame directamente</p>
+          </div>
+
+          <div className="contact-info-content-left">
+            <div className="contact-info-item-left">
+              <span className="contact-info-icon-left">📧</span>
+              <div className="contact-info-details-left">
+                <p className="contact-info-label-left">Email</p>
+                <p className="contact-info-value-left">jig00@iesemilidarder.com</p>
+              </div>
+            </div>
+
+            <div className="contact-info-item-left">
+              <span className="contact-info-icon-left">📱</span>
+              <div className="contact-info-details-left">
+                <p className="contact-info-label-left">Teléfono</p>
+                <p className="contact-info-value-left">+34 643 957 615</p>
+              </div>
+            </div>
+
+            <div className="contact-info-item-left">
+              <span className="contact-info-icon-left">🏢</span>
+              <div className="contact-info-details-left">
+                <p className="contact-info-label-left">Empresa</p>
+                <p className="contact-info-value-left">DigitalEvolution S.A</p>
+              </div>
+            </div>
+
+            <div className="contact-info-item-left">
+              <span className="contact-info-icon-left">💼</span>
+              <div className="contact-info-details-left">
+                <p className="contact-info-label-left">Cargo</p>
+                <p className="contact-info-value-left">Administrador de Sistemas</p>
+              </div>
             </div>
           </div>
-        );
+        </div>
+
+        {/* Sección derecha: Formulario */}
+        <div className="contact-form-section-right">
+          <div className="contact-form-header-right">
+            <h2 className="contact-form-title-right">Envíame un mensaje</h2>
+            <p className="contact-form-subtitle-right">Responderé en menos de 24 horas</p>
+          </div>
+          
+          <form className="contact-form-clean-right" onSubmit={handleContactSubmit}>
+            {/* Nombre completo */}
+            <div className="form-group-clean-right">
+              <label className="form-label-clean-right">Nombre completo*</label>
+              <input
+                type="text"
+                className="form-input-clean-right"
+                value={contactForm.name}
+                onChange={(e) => handleContactChange('name', e.target.value)}
+                required
+                placeholder="Tu nombre"
+              />
+            </div>
+
+            {/* Correo electrónico */}
+            <div className="form-group-clean-right">
+              <label className="form-label-clean-right">Correo electrónico*</label>
+              <input
+                type="email"
+                className="form-input-clean-right"
+                value={contactForm.email}
+                onChange={(e) => handleContactChange('email', e.target.value)}
+                required
+                placeholder="tu@email.com"
+              />
+            </div>
+
+            {/* Asunto */}
+            <div className="form-group-clean-right">
+              <label className="form-label-clean-right">Asunto</label>
+              <input
+                type="text"
+                className="form-input-clean-right"
+                value={contactForm.subject}
+                onChange={(e) => handleContactChange('subject', e.target.value)}
+                placeholder="¿En qué puedo ayudarte?"
+              />
+            </div>
+
+            {/* Mensaje */}
+            <div className="form-group-clean-right">
+              <label className="form-label-clean-right">Mensaje*</label>
+              <textarea
+                className="form-textarea-clean-right"
+                value={contactForm.message}
+                onChange={(e) => handleContactChange('message', e.target.value)}
+                required
+                rows="6"
+                placeholder="Describe tu proyecto o consulta..."
+              />
+            </div>
+
+            {/* Checkbox */}
+            <div className="checkbox-group-clean-right">
+              <input
+                type="checkbox"
+                id="privacy-clean-right"
+                className="checkbox-clean-right"
+                checked={contactForm.acceptedTerms}
+                onChange={(e) => handleContactChange('acceptedTerms', e.target.checked)}
+              />
+              <label htmlFor="privacy-clean-right" className="checkbox-label-clean-right">
+                Acepto que mis datos sean tratados según la política de privacidad
+              </label>
+            </div>
+
+            {/* Botón de envío */}
+            <button 
+              type="submit" 
+              className="submit-btn-clean-right"
+              disabled={isSubmittingContact}
+            >
+              {isSubmittingContact ? 'Enviando...' : 'Enviar mensaje'}
+            </button>
+
+            {/* Mensajes de estado */}
+            {contactSubmitStatus.success && (
+              <div className="success-message-clean-right">
+                ✅ ¡Mensaje enviado correctamente!
+              </div>
+            )}
+            
+            {contactSubmitStatus.error && (
+              <div className="error-message-clean-right">
+                ❌ {contactSubmitStatus.error}
+              </div>
+            )}
+          </form>
+        </div>
+      </div>
+    </div>
+  );
       
       case 'newsletter':
         return (
