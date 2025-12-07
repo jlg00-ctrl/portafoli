@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Añadimos useEffect
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
@@ -6,10 +6,10 @@ import Footer from './components/Footer';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('inicio');
-  const [visitCount, setVisitCount] = useState(0); // Nuevo estado invisible
+  const [visitCount, setVisitCount] = useState(0); // Contador de visitas
   const [isLoading, setIsLoading] = useState(false); // Para futuras cargas
 
-  // 🔹 useEffect 1: Trackeo de visitas (totalmente invisible)
+  // Trackeo de visitas al portfolio
   useEffect(() => {
     // Incrementar contador de visitas en localStorage
     const storedVisits = localStorage.getItem('portfolioVisits') || 0;
@@ -18,11 +18,11 @@ function App() {
     setVisitCount(newVisitCount);
     localStorage.setItem('portfolioVisits', newVisitCount);
     
-    // Solo para desarrollo - puedes quitarlo en producción
-    console.log(`🏆 Visita número: ${newVisitCount} a tu portfolio`);
+    // Solo para desarrollo
+    console.log(`Visita número: ${newVisitCount} a tu portfolio`);
   }, []); // Se ejecuta solo al montar el componente
 
-  // 🔹 useEffect 2: Cambio de título dinámico según página
+  // Cambiar título de la página según la navegación
   useEffect(() => {
     const pageTitles = {
       'inicio': 'Jorge Lopez - Admin Sistemas',
@@ -35,20 +35,20 @@ function App() {
     
     document.title = pageTitles[currentPage] || 'Portfolio Jorge Lopez';
     
-    // También podríamos trackear analíticas de página
-    console.log(`📊 Navegación a: ${currentPage}`);
+    // Log de navegación
+    console.log(`Navegación a: ${currentPage}`);
   }, [currentPage]); // Se ejecuta cada vez que cambia currentPage
 
   return (
     <div className="app">
-      {/* Estado de carga preparado para futuro uso */}
+      {/* Estado de carga (oculto, preparado para futuro) */}
       {isLoading && <div style={{display: 'none'}}>Cargando...</div>}
       
       <Header setCurrentPage={setCurrentPage} />
       <MainContent 
         currentPage={currentPage} 
         setCurrentPage={setCurrentPage} 
-        visitCount={visitCount} // Pasamos datos invisibles
+        visitCount={visitCount} // Pasamos el contador de visitas
       />
       <Footer />
     </div>

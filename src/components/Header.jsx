@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 const Header = ({ setCurrentPage }) => {
-  // 🔹 Estado para menú móvil (preparado para futuro)
+  // Estado para menú móvil (para futuro uso)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // 🔹 useEffect: Detectar cambios en el tamaño de ventana
+  // Detectar cambios en el tamaño de la ventana
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -18,18 +18,18 @@ const Header = ({ setCurrentPage }) => {
 
     window.addEventListener('resize', handleResize);
     
-    // Limpieza del event listener
+    // Limpiar event listener cuando el componente se desmonte
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, [isMenuOpen]);
 
-  // 🔹 Función para navegación con tracking
+  // Función para navegar entre páginas
   const handleNavigation = (page) => {
     setCurrentPage(page);
     
-    // Tracking invisible
-    console.log(`📍 Navegación a: ${page} desde Header`);
+    // Log para tracking
+    console.log(`Navegación a: ${page} desde Header`);
     
     // Cerrar menú móvil si está abierto
     if (isMenuOpen) {
@@ -48,7 +48,6 @@ const Header = ({ setCurrentPage }) => {
       </div>
 
       <div className="nav-buttons">
-        {/* Usamos la nueva función de navegación */}
         <button onClick={() => handleNavigation('inicio')}>Inicio</button>
         <button onClick={() => handleNavigation('proyectos')}>Proyectos</button>
         <button onClick={() => handleNavigation('habilidades')}>Habilidades</button>
@@ -56,7 +55,7 @@ const Header = ({ setCurrentPage }) => {
         <button onClick={() => handleNavigation('newsletter')}>Newsletter</button>
       </div>
 
-      {/* Menú móvil preparado para futuro (oculto por ahora) */}
+      {/* Menú móvil (oculto por ahora, preparado para futuro) */}
       <div style={{display: 'none'}}>
         <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
           {isMenuOpen ? '✖' : '☰'}

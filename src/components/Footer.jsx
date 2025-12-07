@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { FaInstagram, FaGithub, FaWhatsapp } from 'react-icons/fa';
 
 const Footer = () => {
-  // 🔹 Estado para tracking de clicks en redes
+  // Estado para contar clicks en redes sociales
   const [socialClicks, setSocialClicks] = useState({
     instagram: 0,
     github: 0,
     whatsapp: 0
   });
 
-  // 🔹 Función para manejar clicks en redes sociales
+  // Función para manejar clicks en redes sociales
   const handleSocialClick = (platform) => {
     // Actualizar contador
     setSocialClicks(prev => ({
@@ -22,10 +22,10 @@ const Footer = () => {
     clicks[platform] = (clicks[platform] || 0) + 1;
     localStorage.setItem('socialClicks', JSON.stringify(clicks));
     
-    console.log(`📱 Click en ${platform}: Total ${clicks[platform]}`);
+    console.log(`Click en ${platform}: Total ${clicks[platform]}`);
   };
 
-  // 🔹 useEffect: Cargar clicks guardados
+  // Cargar clicks guardados al inicio
   useEffect(() => {
     const savedClicks = localStorage.getItem('socialClicks');
     if (savedClicks) {
@@ -36,7 +36,8 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <p>&copy; 2025 DigitalEvolution S.A. - Jorge Lopez</p>
+        <p>&copy; 2025 DigitalEvolution S.A. Todos los derechos reservados </p>
+         <p>Jorge Lopez Glyn</p>
         <p>Administrador de Sistemas & Desarrollador Full Stack</p>
         
         <div className="footer-social">
@@ -76,7 +77,7 @@ const Footer = () => {
           <span>📱 +34 643 957 615</span>
         </div>
 
-        {/* Tracking invisible */}
+        {/* Tracking invisible para analíticas */}
         <div style={{display: 'none'}}>
           <p>Clicks en redes: Instagram({socialClicks.instagram}), 
              GitHub({socialClicks.github}), 

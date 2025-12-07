@@ -1,55 +1,54 @@
-/* ARCHIVO: App.css - Estilos principales de la aplicación */
-/* ALUMNO ASIX: Jorge Lopez - Estilización web y diseño responsive */
+/* ARCHIVO: App.css - Estilos principales */
+/* ALUMNO: Jorge Lopez - Estilización web responsive */
 
-/* RESET ABSOLUTO - Normalización de estilos entre navegadores */
-/* OBJETIVO: Eliminar diferencias por defecto entre navegadores */
+/* Reset básico para todos los navegadores */
 * {
   margin: 0;
   padding: 0;
   border: 0;
-  box-sizing: border-box; /* Modelo de caja consistente */
+  box-sizing: border-box;
 }
 
-/* ESTRUCTURA BASE - Configuración del viewport y tipografía */
+/* Estructura base */
 html, body, #root {
   width: 100%;
-  height: 100%; /* Ocupar toda la altura visible */
+  height: 100%;
 }
 
 body {
-  background: #0f172a; /* Color de fondo oscuro - Tema profesional */
-  font-family: 'Segoe UI Emoji', 'Segoe UI Symbol', 'Apple Color Emoji', 'Noto Color Emoji', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Fuentes escalables */
-  line-height: 1.6; /* Mejor legibilidad */
-  color: #e2e8f0; /* Color de texto claro para contraste */
+  background: #0f172a;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: #e2e8f0;
 }
 
-/* CONTENEDOR PRINCIPAL - Layout flex para estructura de página */
+/* Contenedor principal */
 .app {
-  background: #1e293b; /* Fondo del contenido */
+  background: #1e293b;
   width: 100%;
-  min-height: 100vh; /* Mínimo altura de viewport */
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column; /* Header -> Content -> Footer */
+  flex-direction: column;
 }
 
-/* NAVBAR PROFESIONAL - Barra de navegación sticky */
+/* Barra de navegación */
 .navbar {
-  background: rgba(15, 23, 42, 0.95); /* Fondo semitransparente */
-  backdrop-filter: blur(10px); /* Efecto glassmorphism */
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
   padding: 1rem 3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  border-bottom: 1px solid #334155; /* Separación sutil */
-  position: sticky; /* Navegación siempre visible */
+  border-bottom: 1px solid #334155;
+  position: sticky;
   top: 0;
-  z-index: 1000; /* Por encima de otros elementos */
+  z-index: 1000;
 }
 
-/* LOGO CON ENGRANAJES - Animación CSS para identidad visual */
+/* Logo con animación */
 .logo {
   display: flex;
   align-items: center;
@@ -68,13 +67,13 @@ body {
 .gear {
   position: absolute;
   border-radius: 50%;
-  animation: rotate 10s linear infinite; /* Animación continua */
+  animation: rotate 10s linear infinite;
 }
 
 .gear.large {
   width: 30px;
   height: 30px;
-  background: conic-gradient(from 0deg, transparent, #60a5fa, transparent); /* Gradiente dinámico */
+  background: conic-gradient(from 0deg, transparent, #60a5fa, transparent);
   border: 2px solid #60a5fa;
 }
 
@@ -85,7 +84,7 @@ body {
   border: 2px solid #a78bfa;
   top: 5px;
   left: 15px;
-  animation-direction: reverse; /* Contrarrotación */
+  animation-direction: reverse;
 }
 
 .gear.large::before,
@@ -94,7 +93,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #1e293b; /* Centro del engranaje */
+  background: #1e293b;
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -113,17 +112,17 @@ body {
 
 @keyframes rotate {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); } /* Rotación completa */
+  to { transform: rotate(360deg); }
 }
 
 .logo-text {
   color: #60a5fa;
   font-weight: 600;
   font-size: 1.2rem;
-  letter-spacing: -0.5px; /* Mejor kerning */
+  letter-spacing: -0.5px;
 }
 
-/* BOTONES DE NAVEGACIÓN - Interactividad y feedback visual */
+/* Botones de navegación */
 .nav-buttons {
   display: flex;
   gap: 2rem;
@@ -138,24 +137,9 @@ body {
   cursor: pointer;
   font-weight: 500;
   font-size: 0.95rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-}
-
-.nav-buttons button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-  transition: left 0.5s; /* Efecto de barrida */
-}
-
-.nav-buttons button:hover::before {
-  left: 100%; /* Animación completa */
 }
 
 .nav-buttons button:hover {
@@ -164,16 +148,16 @@ body {
 }
 
 .nav-buttons button:active {
-  transform: scale(0.98); /* Feedback al hacer click */
+  transform: scale(0.98);
 }
 
-/* CONTENIDO PRINCIPAL - Área de contenido central */
+/* Contenido principal */
 .main-content {
   padding: 5rem 3rem;
   width: 100%;
-  max-width: 1400px; /* Ancho máximo para legibilidad */
-  margin: 0 auto; /* Centrado */
-  flex: 1; /* Ocupa espacio disponible */
+  max-width: 1400px;
+  margin: 0 auto;
+  flex: 1;
 }
 
 .page {
@@ -195,18 +179,18 @@ body {
   line-height: 1.7;
   max-width: 600px;
   margin-left: auto;
-  margin-right: auto; /* Centrado con ancho limitado */
+  margin-right: auto;
 }
 
-/* HERO CON FOTO DE PERFIL - Sección de presentación principal */
+/* Sección de perfil */
 .hero-with-photo {
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
   border: 1px solid #334155;
   border-radius: 20px;
   margin: 3rem auto;
   max-width: 1000px;
-  backdrop-filter: blur(10px); /* Efecto cristal */
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Sombra pronunciada */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
@@ -217,21 +201,17 @@ body {
   padding: 3rem;
 }
 
-.profile-image {
-  flex-shrink: 0; /* Evita que la imagen se reduzca */
-}
-
 .profile-image img {
   width: 200px;
   height: 200px;
-  border-radius: 50%; /* Imagen circular */
-  object-fit: cover; /* Ajuste de imagen */
+  border-radius: 50%;
+  object-fit: cover;
   border: 4px solid #60a5fa;
-  box-shadow: 0 15px 35px rgba(96, 165, 250, 0.3); /* Sombra azul */
+  box-shadow: 0 15px 35px rgba(96, 165, 250, 0.3);
 }
 
 .profile-info {
-  flex: 1; /* Ocupa espacio restante */
+  flex: 1;
   text-align: left;
 }
 
@@ -243,17 +223,17 @@ body {
 }
 
 .profile-title {
-  color: #cbd5e1 !important;
-  font-size: 1.4rem !important;
+  color: #cbd5e1;
+  font-size: 1.4rem;
   font-weight: 600;
-  margin-bottom: 1rem !important;
+  margin-bottom: 1rem;
 }
 
 .profile-subtitle {
-  color: #94a3b8 !important;
-  font-size: 1.2rem !important;
-  margin-bottom: 2rem !important;
-  line-height: 1.6 !important;
+  color: #94a3b8;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
 .profile-info button {
@@ -269,14 +249,14 @@ body {
 }
 
 .profile-info button:hover {
-  transform: translateY(-3px); /* Efecto elevación */
+  transform: translateY(-3px);
   box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
 }
 
-/* PROYECTOS PROFESIONALES - Grid de tarjetas técnicas */
+/* Grid de proyectos */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Grid responsive */
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2.5rem;
   max-width: 1200px;
   margin: 4rem auto;
@@ -288,24 +268,12 @@ body {
   padding: 2.5rem;
   border-radius: 16px;
   border: 1px solid #334155;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #60a5fa, transparent); /* Línea decorativa */
 }
 
 .project-card:hover {
-  transform: translateY(-8px); /* Efecto flotante */
+  transform: translateY(-8px);
   border-color: #60a5fa;
   box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
 }
@@ -324,7 +292,7 @@ body {
   font-size: 1rem;
 }
 
-/* HABILIDADES - Categorías de skills técnicas */
+/* Habilidades técnicas */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -360,7 +328,7 @@ body {
   background: rgba(59, 130, 246, 0.1);
   color: #60a5fa;
   padding: 0.6rem 1.2rem;
-  border-radius: 20px; /* Pastillas redondeadas */
+  border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 500;
   border: 1px solid rgba(96, 165, 250, 0.3);
@@ -372,7 +340,7 @@ body {
   transform: translateY(-2px);
 }
 
-/* SECCIONES DE CONTACTO Y NEWSLETTER - Formularios y info */
+/* Formularios */
 .contact-info, .newsletter-form {
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
   padding: 3.5rem;
@@ -411,7 +379,7 @@ body {
 .newsletter-form input:focus {
   outline: none;
   border-color: #60a5fa;
-  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1); /* Outline accesible */
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
 }
 
 .newsletter-form input::placeholder {
@@ -436,13 +404,13 @@ body {
 }
 
 .newsletter-note {
-  font-size: 0.9rem !important;
-  color: #94a3b8 !important;
-  margin-top: 1rem !important;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-top: 1rem;
   font-style: italic;
 }
 
-/* EJEMPLO DE NEWSLETTER - Maquetación de contenido editorial */
+/* Newsletter de ejemplo */
 .newsletter-example {
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);
   border: 1px solid #334155;
@@ -468,12 +436,6 @@ body {
   font-weight: 600;
 }
 
-.newsletter-header p {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.1rem;
-  margin-bottom: 0;
-}
-
 .newsletter-content {
   padding: 2.5rem;
 }
@@ -481,7 +443,7 @@ body {
 .newsletter-article {
   margin-bottom: 2.5rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid #334155; /* Separador de artículos */
+  border-bottom: 1px solid #334155;
 }
 
 .newsletter-article:last-child {
@@ -533,12 +495,12 @@ body {
   box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
 }
 
-/* FOOTER PROFESIONAL - Información de contacto y derechos */
+/* Footer */
 .footer {
   background: rgba(15, 23, 42, 0.95);
   border-top: 1px solid #334155;
   padding: 2.5rem 2rem;
-  margin-top: auto; /* Empuja el footer al final */
+  margin-top: auto;
 }
 
 .footer-content {
@@ -566,7 +528,7 @@ body {
   font-size: 0.9rem;
 }
 
-/* ICONOS SOCIALES DEL FOOTER - Redes sociales con hover effects */
+/* Iconos sociales */
 .footer-social {
   display: flex;
   justify-content: center;
@@ -578,32 +540,27 @@ body {
   color: #94a3b8;
   font-size: 1.5rem;
   transition: all 0.3s ease;
-  opacity: 0.8;
 }
 
 .social-icon:hover {
   color: #60a5fa;
-  opacity: 1;
   transform: translateY(-2px);
 }
 
-/* Colores específicos para cada icono al hacer hover */
-.social-icon:nth-child(1):hover { /* Instagram */
-  color: #E4405F;
+/* Estilos específicos para cada red social */
+.social-icon:nth-child(1):hover {
+  color: #E4405F; /* Instagram */
 }
 
-.social-icon:nth-child(2):hover { /* GitHub */
-  color: #FC6D26;
+.social-icon:nth-child(2):hover {
+  color: #FC6D26; /* GitHub */
 }
 
-.social-icon:nth-child(3):hover { /* WhatsApp */
-  color: #25D366;
+.social-icon:nth-child(3):hover {
+  color: #25D366; /* WhatsApp */
 }
 
-/* ===== ESTILOS CON INFO A LA IZQUIERDA Y FORMULARIO A LA DERECHA ===== */
-
-/* ===== ESTILOS MEJORADOS PARA INFORMACIÓN DE CONTACTO ===== */
-
+/* Estructura de contacto (info izquierda, formulario derecha) */
 .contact-page {
   max-width: 1200px;
   margin: 0 auto;
@@ -612,13 +569,13 @@ body {
 
 .contact-wrapper-reverse {
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr; /* INFO IZQUIERDA (más pequeña), FORMULARIO DERECHA (más grande) */
+  grid-template-columns: 0.8fr 1.2fr;
   gap: 4rem;
   align-items: start;
   min-height: 600px;
 }
 
-/* Sección izquierda: Información de contacto MEJORADA */
+/* Sección izquierda: Información de contacto */
 .contact-info-section-left {
   background: rgba(15, 23, 42, 0.6);
   border-radius: 16px;
@@ -628,9 +585,6 @@ body {
   top: 2rem;
   height: fit-content;
   backdrop-filter: blur(10px);
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .contact-info-header-left {
@@ -644,15 +598,6 @@ body {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 0.8rem;
-  letter-spacing: -0.5px;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.contact-info-title-left::before {
-  content: "📱";
-  font-size: 1.5rem;
 }
 
 .contact-info-subtitle-left {
@@ -676,14 +621,13 @@ body {
   background: rgba(15, 23, 42, 0.4);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 
 .contact-info-item-left:hover {
   transform: translateX(8px);
   background: rgba(96, 165, 250, 0.1);
   border-color: rgba(96, 165, 250, 0.3);
-  box-shadow: 0 5px 20px rgba(96, 165, 250, 0.15);
 }
 
 .contact-info-icon-left {
@@ -696,7 +640,6 @@ body {
   justify-content: center;
   background: linear-gradient(135deg, rgba(96, 165, 250, 0.15), rgba(139, 92, 246, 0.15));
   border-radius: 12px;
-  flex-shrink: 0;
   border: 1px solid rgba(96, 165, 250, 0.2);
 }
 
@@ -710,18 +653,6 @@ body {
   margin-bottom: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.contact-info-label-left::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(96, 165, 250, 0.3), transparent);
-  margin-left: 0.5rem;
 }
 
 .contact-info-value-left {
@@ -729,40 +660,15 @@ body {
   font-size: 1.1rem;
   font-weight: 500;
   line-height: 1.6;
-  letter-spacing: 0.3px;
 }
 
-/* Iconos específicos para cada tipo de contacto */
-.contact-info-item-left:nth-child(1) .contact-info-icon-left {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.15));
-  border-color: rgba(59, 130, 246, 0.3);
-}
-
-.contact-info-item-left:nth-child(2) .contact-info-icon-left {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(21, 128, 61, 0.15));
-  border-color: rgba(34, 197, 94, 0.3);
-}
-
-.contact-info-item-left:nth-child(3) .contact-info-icon-left {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(147, 51, 234, 0.15));
-  border-color: rgba(168, 85, 247, 0.3);
-}
-
-.contact-info-item-left:nth-child(4) .contact-info-icon-left {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(217, 119, 6, 0.15));
-  border-color: rgba(245, 158, 11, 0.3);
-}
-
-/* Sección derecha: Formulario (ya está bien) */
+/* Sección derecha: Formulario */
 .contact-form-section-right {
   background: rgba(15, 23, 42, 0.6);
   border-radius: 16px;
   padding: 2.5rem;
   border: 1px solid rgba(96, 165, 250, 0.2);
   backdrop-filter: blur(10px);
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .contact-form-header-right {
@@ -776,15 +682,6 @@ body {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 0.8rem;
-  letter-spacing: -0.5px;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.contact-form-title-right::before {
-  content: "✉️";
-  font-size: 1.5rem;
 }
 
 .contact-form-subtitle-right {
@@ -810,9 +707,7 @@ body {
   color: #cbd5e1;
   font-size: 0.95rem;
   font-weight: 600;
-  display: block;
   margin-bottom: 0.3rem;
-  letter-spacing: 0.3px;
 }
 
 .form-input-clean-right,
@@ -825,13 +720,12 @@ body {
   font-size: 1rem;
   color: #f8fafc;
   font-family: inherit;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 
 .form-input-clean-right::placeholder,
 .form-textarea-clean-right::placeholder {
   color: #64748b;
-  font-weight: 300;
 }
 
 .form-input-clean-right:focus,
@@ -840,7 +734,6 @@ body {
   border-color: #60a5fa;
   background: rgba(15, 23, 42, 0.9);
   box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.15);
-  transform: translateY(-1px);
 }
 
 .form-textarea-clean-right {
@@ -849,7 +742,7 @@ body {
   line-height: 1.6;
 }
 
-/* Checkbox mejorado */
+/* Checkbox */
 .checkbox-group-clean-right {
   display: flex;
   align-items: flex-start;
@@ -874,12 +767,11 @@ body {
   color: #cbd5e1;
   font-size: 0.9rem;
   cursor: pointer;
-  user-select: none;
   line-height: 1.5;
   flex: 1;
 }
 
-/* Botón mejorado */
+/* Botón de envío */
 .submit-btn-clean-right {
   background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
   color: white;
@@ -889,39 +781,15 @@ body {
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   margin-top: 1rem;
   width: 100%;
-  letter-spacing: 0.5px;
-  position: relative;
-  overflow: hidden;
-}
-
-.submit-btn-clean-right::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.7s;
-}
-
-.submit-btn-clean-right:hover:not(:disabled)::before {
-  left: 100%;
 }
 
 .submit-btn-clean-right:hover:not(:disabled) {
   background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
   transform: translateY(-3px);
-  box-shadow: 
-    0 15px 30px rgba(37, 99, 235, 0.4),
-    0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.submit-btn-clean-right:active:not(:disabled) {
-  transform: translateY(-1px);
+  box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
 }
 
 .submit-btn-clean-right:disabled {
@@ -930,7 +798,7 @@ body {
   opacity: 0.7;
 }
 
-/* Mensajes de estado mejorados */
+/* Mensajes de estado */
 .success-message-clean-right,
 .error-message-clean-right {
   padding: 1.2rem;
@@ -938,22 +806,10 @@ body {
   font-size: 0.95rem;
   text-align: center;
   margin-top: 1.5rem;
-  animation: slideIn 0.4s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .success-message-clean-right {
@@ -968,9 +824,9 @@ body {
   border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-/* ===== RESPONSIVE DESIGN - Adaptación a dispositivos móviles ===== */
+/* ===== RESPONSIVE DESIGN ===== */
 
-/* Para tablets grandes y laptops pequeños (900px - 1100px) */
+/* Para tablets grandes (hasta 1100px) */
 @media (max-width: 1100px) {
   .contact-wrapper-reverse {
     gap: 3rem;
@@ -982,10 +838,10 @@ body {
   }
 }
 
-/* Para tablets (768px - 900px) - SEGUIMOS CON 2 COLUMNAS */
+/* Para tablets (hasta 900px) */
 @media (max-width: 900px) {
   .contact-wrapper-reverse {
-    grid-template-columns: 1fr 1.2fr; /* Sigue siendo 2 columnas */
+    grid-template-columns: 1fr 1.2fr;
     gap: 2.5rem;
   }
   
@@ -997,133 +853,9 @@ body {
   .contact-info-title-left {
     font-size: 1.6rem;
   }
-  
-  .contact-info-item-left {
-    padding: 1.2rem;
-    gap: 1.2rem;
-  }
-  
-  .contact-info-icon-left {
-    width: 40px;
-    height: 40px;
-    font-size: 1.4rem;
-  }
 }
 
-/* Solo para móviles (< 768px) - AQUÍ SÍ APILAMOS */
-@media (max-width: 768px) {
-  .contact-wrapper-reverse {
-    grid-template-columns: 1fr; /* Ahora sí 1 columna */
-    gap: 2.5rem;
-  }
-  
-  .contact-info-section-left {
-    position: static;
-    order: 2; /* Info va después (abajo) */
-  }
-  
-  .contact-form-section-right {
-    order: 1; /* Formulario va primero (arriba) */
-  }
-  
-  .contact-info-section-left,
-  .contact-form-section-right {
-    padding: 2rem;
-  }
-  
-  .contact-page {
-    padding: 2rem 1rem;
-  }
-  
-  .contact-info-item-left {
-    padding: 1.5rem;
-  }
-}
-
-/* Para móviles pequeños (< 480px) */
-@media (max-width: 480px) {
-  .contact-page {
-    padding: 1.5rem 1rem;
-  }
-  
-  .contact-info-section-left,
-  .contact-form-section-right {
-    padding: 1.5rem;
-  }
-  
-  .contact-form-title-right,
-  .contact-info-title-left {
-    font-size: 1.4rem;
-  }
-  
-  .contact-info-item-left {
-    padding: 1.2rem;
-    gap: 1rem;
-  }
-  
-  .contact-info-icon-left {
-    width: 36px;
-    height: 36px;
-    font-size: 1.2rem;
-  }
-  
-  .form-input-clean-right,
-  .form-textarea-clean-right {
-    padding: 0.9rem 1rem;
-  }
-  
-  .submit-btn-clean-right {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-  }
-}   
-/* } */
-
-/* ===== RESPONSIVE DESIGN - Adaptación a dispositivos móviles ===== */
-
-/* Para tablets grandes y laptops pequeños (900px - 1100px) */
-@media (max-width: 1100px) {
-  .contact-wrapper-reverse {
-    gap: 3rem;
-  }
-  
-  .contact-info-section-left,
-  .contact-form-section-right {
-    padding: 2rem;
-  }
-}
-
-/* Para tablets (768px - 900px) - SEGUIMOS CON 2 COLUMNAS */
-@media (max-width: 900px) {
-  .contact-wrapper-reverse {
-    grid-template-columns: 1fr 1.2fr; /* Sigue siendo 2 columnas */
-    gap: 2.5rem;
-  }
-  
-  .contact-page {
-    padding: 2rem 1.5rem;
-  }
-  
-  .contact-form-title-right {
-    font-size: 1.6rem;
-  }
-  
-  .contact-info-title-left {
-    font-size: 1.4rem;
-  }
-  
-  .contact-info-item-left {
-    gap: 1rem;
-  }
-  
-  .contact-info-icon-left {
-    width: 36px;
-    height: 36px;
-    font-size: 1.2rem;
-  }
-}
-
-/* Solo para móviles (< 768px) - AQUÍ SÍ APILAMOS */
+/* Para móviles (hasta 768px) */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column;
@@ -1138,19 +870,19 @@ body {
   }
   
   .nav-buttons button {
-    width: 100%; /* Botones de ancho completo en móvil */
+    width: 100%;
   }
   
   .page h1 {
-    font-size: 2.5rem; /* Títulos más pequeños */
+    font-size: 2.5rem;
   }
   
   .main-content {
-    padding: 3rem 1.5rem; /* Menos padding en móvil */
+    padding: 3rem 1.5rem;
   }
   
   .profile-section {
-    flex-direction: column; /* Stack vertical en móvil */
+    flex-direction: column;
     text-align: center;
     gap: 2rem;
     padding: 2rem 1.5rem;
@@ -1166,11 +898,11 @@ body {
   
   .profile-image img {
     width: 150px;
-    height: 150px; /* Imagen más pequeña en móvil */
+    height: 150px;
   }
   
   .projects-grid {
-    grid-template-columns: 1fr; /* Una columna en móvil */
+    grid-template-columns: 1fr;
     gap: 2rem;
   }
   
@@ -1179,72 +911,27 @@ body {
     gap: 2rem;
   }
   
-  .contact-info, .newsletter-form {
-    padding: 2.5rem 1.5rem;
-    margin: 2rem auto;
+  .contact-wrapper-reverse {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
   
-  .newsletter-example {
-    margin: 2rem auto;
+  .contact-info-section-left {
+    position: static;
+    order: 2;
   }
   
-  .newsletter-header {
-    padding: 2rem 1.5rem;
-  }
-  
-  .newsletter-content {
-    padding: 2rem 1.5rem;
-  }
-  
-  .newsletter-article {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-  }
-  
-  .footer {
-    padding: 2rem 1.5rem;
+  .contact-form-section-right {
+    order: 1;
   }
   
   .footer-links {
     flex-direction: column;
     gap: 1rem;
   }
-  
-  .footer-social {
-    gap: 1rem;
-    margin: 0.8rem 0;
-  }
-  
-  .social-icon {
-    font-size: 1.3rem; /* Iconos más pequeños */
-  }
-
-  /* Contacto responsive para móviles */
-  .contact-wrapper-reverse {
-    grid-template-columns: 1fr; /* Ahora sí 1 columna */
-    gap: 2.5rem;
-  }
-  
-  .contact-info-section-left {
-    position: static;
-    order: 2; /* Info va después (abajo) */
-  }
-  
-  .contact-form-section-right {
-    order: 1; /* Formulario va primero (arriba) */
-  }
-  
-  .contact-info-section-left,
-  .contact-form-section-right {
-    padding: 2rem;
-  }
-  
-  .contact-page {
-    padding: 2rem 1rem;
-  }
 }
 
-/* Para móviles pequeños (< 480px) */
+/* Para móviles pequeños (hasta 480px) */
 @media (max-width: 480px) {
   .contact-page {
     padding: 1.5rem 1rem;
@@ -1270,11 +957,5 @@ body {
   
   .submit-btn-clean-right {
     padding: 0.9rem 1.5rem;
-  }
-  
-  .contact-info-icon-left {
-    width: 32px;
-    height: 32px;
-    font-size: 1.1rem;
   }
 }

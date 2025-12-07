@@ -1,8 +1,8 @@
-// COMPONENTE: MainContent - Contenido principal dinámico del portfolio
+// COMPONENTE: MainContent - Contenido principal del portfolio
 import React, { useState, useEffect } from 'react';
 
 const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
-  // 🔹 Estado para futura carga dinámica de proyectos
+  // Estado para los proyectos
   const [projects, setProjects] = useState([
     {
       id: 1,
@@ -31,20 +31,34 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
       description: 'Desarrollo frontend de la página web de la empresa usando React. Diseño responsive y optimización para SEO.',
       tech: ['React', 'CSS', 'SEO'],
       featured: true
+    },
+    {
+      id: 5,
+      title: 'Migración a AWS Cloud',
+      description: 'Migración completa de infraestructura on-premise a AWS. Implementación de VPC, EC2, RDS y S3 con alta disponibilidad y balanceo de carga.',
+      tech: ['AWS', 'CloudFormation', 'Terraform', 'High Availability'],
+      featured: true
+    },
+    {
+      id: 6,
+      title: 'Sistema de CI/CD Pipeline',
+      description: 'Configuración de pipeline de integración y despliegue continuo usando Jenkins, Docker y Kubernetes para aplicaciones microservicios.',
+      tech: ['Jenkins', 'Docker', 'Kubernetes', 'CI/CD'],
+      featured: true
     }
   ]);
 
-  // 🔹 Estado para manejar formulario del newsletter
+  // Estado para el formulario del newsletter
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  // 🔹 Estado para habilidades
+  // Estado para las habilidades técnicas
   const [skills, setSkills] = useState({
     sistemas: [],
     desarrollo: []
   });
 
-  // 🔹 Estado para el formulario de contacto
+  // Estado para el formulario de contacto
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
@@ -59,24 +73,26 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
     error: ''
   });
 
-  // 🔹 useEffect 1: Carga inicial de datos
+  // Carga inicial de datos al montar el componente
   useEffect(() => {
-    console.log('📂 Datos de proyectos cargados:', projects.length);
+    console.log('Datos de proyectos cargados:', projects.length);
     
-    // Cargar habilidades iniciales
+    // Configurar las habilidades iniciales
     setSkills({
       sistemas: [
         'Windows Server', 'Active Directory', 'PowerShell', 
-        'Bash Scripting', 'Monitorización', 'Backup & Recovery'
+        'Bash Scripting', 'Monitorización', 'Backup & Recovery',
+        'AWS', 'Docker', 'Kubernetes'
       ],
       desarrollo: [
         'React', 'JavaScript', 'HTML/CSS', 
-        'AWS', 'Docker', 'Git'
+        'AWS', 'Docker', 'Git', 'Jenkins', 'CI/CD',
+        'CloudFormation', 'Terraform'
       ]
     });
   }, []);
 
-  // 🔹 useEffect 2: Efecto al cambiar de página
+  // Efecto que se ejecuta cuando cambia la página
   useEffect(() => {
     // Scroll suave al cambiar de página
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -84,41 +100,36 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
     // Guardar la última página visitada
     localStorage.setItem('lastVisitedPage', currentPage);
     
-    // Log para analíticas (invisible)
+    // Log para analíticas
     if (visitCount) {
-      console.log(`👤 Visita ${visitCount} - Página: ${currentPage}`);
+      console.log(`Visita ${visitCount} - Página: ${currentPage}`);
     }
   }, [currentPage, visitCount]);
 
-  // 🔹 Función para manejar suscripción al newsletter
+  // Función para suscribirse al newsletter
   const handleSubscribe = () => {
-    // Guardar el email actual
     const currentEmail = email;
     
-    // Validar y guardar si es válido
     if (currentEmail && currentEmail.includes('@')) {
       localStorage.setItem('newsletterEmail', currentEmail);
-      console.log('✅ Email guardado:', currentEmail);
+      console.log('Email guardado:', currentEmail);
       
-      // Mostrar feedback visual breve
+      // Mostrar feedback visual
       setIsSubscribed(true);
       
-      // Limpiar después de 300ms (para que se vea el ✅)
+      // Limpiar después de un momento
       setTimeout(() => {
         setEmail('');
         setIsSubscribed(false);
         setCurrentPage('ejemplo-newsletter');
       }, 300);
     } else {
-      // Si no hay email válido, navegar igual pero sin guardar
       setCurrentPage('ejemplo-newsletter');
-      
-      // Limpiar campo
       setEmail('');
     }
   };
 
-  // 🔹 Función para manejar cambios en el formulario de contacto
+  // Función para manejar cambios en el formulario de contacto
   const handleContactChange = (field, value) => {
     setContactForm(prev => ({
       ...prev,
@@ -131,11 +142,11 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
     }
   };
 
-  // 🔹 Función para enviar el formulario de contacto
+  // Función para enviar el formulario de contacto
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     
-    // Validación
+    // Validación del formulario
     if (!contactForm.acceptedTerms) {
       setContactSubmitStatus({ 
         success: false, 
@@ -155,9 +166,9 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
     setIsSubmittingContact(true);
     
     try {
-      // Simulación de envío
-      console.log('📤 Enviando formulario de contacto:', contactForm);
+      console.log('Enviando formulario de contacto:', contactForm);
       
+      // Simulación de envío (1.5 segundos)
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       // Éxito
@@ -189,13 +200,13 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
         success: false, 
         error: 'Error al enviar el mensaje. Intenta nuevamente.' 
       });
-      console.error('❌ Error en formulario:', error);
+      console.error('Error en formulario:', error);
     } finally {
       setIsSubmittingContact(false);
     }
   };
 
-  // FUNCIÓN: renderPage - Renderizado condicional basado en la página actual
+  // Función que renderiza la página según la navegación
   const renderPage = () => {
     switch(currentPage) {
       case 'inicio':
@@ -226,16 +237,18 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
         return (
           <div className="page">
             <h1>Mis Proyectos 🚀</h1>
-            {/* Ahora usamos el estado projects */}
+            <p className="projects-count">Mostrando {projects.length} proyectos destacados</p>
             <div className="projects-grid">
               {projects.map(project => (
                 <div key={project.id} className="project-card">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  {/* Tags preparados para futuro uso */}
-                  <div style={{display: 'none'}}>
-                    {project.tech.map(tech => (
-                      <span key={tech}>{tech}</span>
+                  <div className="project-header">
+                    <h3>{project.title}</h3>
+                    {project.featured && <span className="featured-badge">⭐ Destacado</span>}
+                  </div>
+                  <p className="project-description">{project.description}</p>
+                  <div className="project-tech">
+                    {project.tech.map((tech, index) => (
+                      <span key={index} className="tech-tag">{tech}</span>
                     ))}
                   </div>
                 </div>
@@ -268,158 +281,152 @@ const MainContent = ({ currentPage, setCurrentPage, visitCount }) => {
             </div>
           </div>
         );
-      
 
+      case 'contacto':
+        return (
+          <div className="page contact-page">
+            <div className="contact-wrapper-reverse">
+              {/* Sección izquierda: Información de contacto */}
+              <div className="contact-info-section-left">
+                <div className="contact-info-header-left">
+                  <h3 className="contact-info-title-left">Información de contacto</h3>
+                  <p className="contact-info-subtitle-left">Contáctame directamente</p>
+                </div>
 
-// 🔹 Reemplaza SOLO el caso 'contacto' con este código que coincide con la imagen:
+                <div className="contact-info-content-left">
+                  <div className="contact-info-item-left">
+                    <span className="contact-info-icon-left">📧</span>
+                    <div className="contact-info-details-left">
+                      <p className="contact-info-label-left">Email</p>
+                      <p className="contact-info-value-left">jig00@iesemilidarder.com</p>
+                    </div>
+                  </div>
 
-// 🔹 Reemplaza SOLO el caso 'contacto' con este código:
+                  <div className="contact-info-item-left">
+                    <span className="contact-info-icon-left">📱</span>
+                    <div className="contact-info-details-left">
+                      <p className="contact-info-label-left">Teléfono</p>
+                      <p className="contact-info-value-left">+34 643 957 615</p>
+                    </div>
+                  </div>
 
-case 'contacto':
-  return (
-    <div className="page contact-page">
-      <div className="contact-wrapper-reverse">
-        {/* Sección izquierda: Información de contacto */}
-        <div className="contact-info-section-left">
-          <div className="contact-info-header-left">
-            <h3 className="contact-info-title-left">Información de contacto</h3>
-            <p className="contact-info-subtitle-left">Contáctame directamente</p>
+                  <div className="contact-info-item-left">
+                    <span className="contact-info-icon-left">🏢</span>
+                    <div className="contact-info-details-left">
+                      <p className="contact-info-label-left">Empresa</p>
+                      <p className="contact-info-value-left">DigitalEvolution S.A</p>
+                    </div>
+                  </div>
+
+                  <div className="contact-info-item-left">
+                    <span className="contact-info-icon-left">💼</span>
+                    <div className="contact-info-details-left">
+                      <p className="contact-info-label-left">Cargo</p>
+                      <p className="contact-info-value-left">Administrador de Sistemas</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sección derecha: Formulario */}
+              <div className="contact-form-section-right">
+                <div className="contact-form-header-right">
+                  <h2 className="contact-form-title-right">Envíame un mensaje</h2>
+                  <p className="contact-form-subtitle-right">Responderé en menos de 24 horas</p>
+                </div>
+                
+                <form className="contact-form-clean-right" onSubmit={handleContactSubmit}>
+                  {/* Nombre completo */}
+                  <div className="form-group-clean-right">
+                    <label className="form-label-clean-right">Nombre completo*</label>
+                    <input
+                      type="text"
+                      className="form-input-clean-right"
+                      value={contactForm.name}
+                      onChange={(e) => handleContactChange('name', e.target.value)}
+                      required
+                      placeholder="Tu nombre"
+                    />
+                  </div>
+
+                  {/* Correo electrónico */}
+                  <div className="form-group-clean-right">
+                    <label className="form-label-clean-right">Correo electrónico*</label>
+                    <input
+                      type="email"
+                      className="form-input-clean-right"
+                      value={contactForm.email}
+                      onChange={(e) => handleContactChange('email', e.target.value)}
+                      required
+                      placeholder="tu@email.com"
+                    />
+                  </div>
+
+                  {/* Asunto */}
+                  <div className="form-group-clean-right">
+                    <label className="form-label-clean-right">Asunto</label>
+                    <input
+                      type="text"
+                      className="form-input-clean-right"
+                      value={contactForm.subject}
+                      onChange={(e) => handleContactChange('subject', e.target.value)}
+                      placeholder="¿En qué puedo ayudarte?"
+                    />
+                  </div>
+
+                  {/* Mensaje */}
+                  <div className="form-group-clean-right">
+                    <label className="form-label-clean-right">Mensaje*</label>
+                    <textarea
+                      className="form-textarea-clean-right"
+                      value={contactForm.message}
+                      onChange={(e) => handleContactChange('message', e.target.value)}
+                      required
+                      rows="6"
+                      placeholder="Describe tu proyecto o consulta..."
+                    />
+                  </div>
+
+                  {/* Checkbox */}
+                  <div className="checkbox-group-clean-right">
+                    <input
+                      type="checkbox"
+                      id="privacy-clean-right"
+                      className="checkbox-clean-right"
+                      checked={contactForm.acceptedTerms}
+                      onChange={(e) => handleContactChange('acceptedTerms', e.target.checked)}
+                    />
+                    <label htmlFor="privacy-clean-right" className="checkbox-label-clean-right">
+                      Acepto que mis datos sean tratados según la política de privacidad
+                    </label>
+                  </div>
+
+                  {/* Botón de envío */}
+                  <button 
+                    type="submit" 
+                    className="submit-btn-clean-right"
+                    disabled={isSubmittingContact}
+                  >
+                    {isSubmittingContact ? 'Enviando...' : 'Enviar mensaje'}
+                  </button>
+
+                  {/* Mensajes de estado */}
+                  {contactSubmitStatus.success && (
+                    <div className="success-message-clean-right">
+                      ✅ ¡Mensaje enviado correctamente!
+                    </div>
+                  )}
+                  
+                  {contactSubmitStatus.error && (
+                    <div className="error-message-clean-right">
+                      ❌ {contactSubmitStatus.error}
+                    </div>
+                  )}
+                </form>
+              </div>
+            </div>
           </div>
-
-          <div className="contact-info-content-left">
-            <div className="contact-info-item-left">
-              <span className="contact-info-icon-left">📧</span>
-              <div className="contact-info-details-left">
-                <p className="contact-info-label-left">Email</p>
-                <p className="contact-info-value-left">jig00@iesemilidarder.com</p>
-              </div>
-            </div>
-
-            <div className="contact-info-item-left">
-              <span className="contact-info-icon-left">📱</span>
-              <div className="contact-info-details-left">
-                <p className="contact-info-label-left">Teléfono</p>
-                <p className="contact-info-value-left">+34 643 957 615</p>
-              </div>
-            </div>
-
-            <div className="contact-info-item-left">
-              <span className="contact-info-icon-left">🏢</span>
-              <div className="contact-info-details-left">
-                <p className="contact-info-label-left">Empresa</p>
-                <p className="contact-info-value-left">DigitalEvolution S.A</p>
-              </div>
-            </div>
-
-            <div className="contact-info-item-left">
-              <span className="contact-info-icon-left">💼</span>
-              <div className="contact-info-details-left">
-                <p className="contact-info-label-left">Cargo</p>
-                <p className="contact-info-value-left">Administrador de Sistemas</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Sección derecha: Formulario */}
-        <div className="contact-form-section-right">
-          <div className="contact-form-header-right">
-            <h2 className="contact-form-title-right">Envíame un mensaje</h2>
-            <p className="contact-form-subtitle-right">Responderé en menos de 24 horas</p>
-          </div>
-          
-          <form className="contact-form-clean-right" onSubmit={handleContactSubmit}>
-            {/* Nombre completo */}
-            <div className="form-group-clean-right">
-              <label className="form-label-clean-right">Nombre completo*</label>
-              <input
-                type="text"
-                className="form-input-clean-right"
-                value={contactForm.name}
-                onChange={(e) => handleContactChange('name', e.target.value)}
-                required
-                placeholder="Tu nombre"
-              />
-            </div>
-
-            {/* Correo electrónico */}
-            <div className="form-group-clean-right">
-              <label className="form-label-clean-right">Correo electrónico*</label>
-              <input
-                type="email"
-                className="form-input-clean-right"
-                value={contactForm.email}
-                onChange={(e) => handleContactChange('email', e.target.value)}
-                required
-                placeholder="tu@email.com"
-              />
-            </div>
-
-            {/* Asunto */}
-            <div className="form-group-clean-right">
-              <label className="form-label-clean-right">Asunto</label>
-              <input
-                type="text"
-                className="form-input-clean-right"
-                value={contactForm.subject}
-                onChange={(e) => handleContactChange('subject', e.target.value)}
-                placeholder="¿En qué puedo ayudarte?"
-              />
-            </div>
-
-            {/* Mensaje */}
-            <div className="form-group-clean-right">
-              <label className="form-label-clean-right">Mensaje*</label>
-              <textarea
-                className="form-textarea-clean-right"
-                value={contactForm.message}
-                onChange={(e) => handleContactChange('message', e.target.value)}
-                required
-                rows="6"
-                placeholder="Describe tu proyecto o consulta..."
-              />
-            </div>
-
-            {/* Checkbox */}
-            <div className="checkbox-group-clean-right">
-              <input
-                type="checkbox"
-                id="privacy-clean-right"
-                className="checkbox-clean-right"
-                checked={contactForm.acceptedTerms}
-                onChange={(e) => handleContactChange('acceptedTerms', e.target.checked)}
-              />
-              <label htmlFor="privacy-clean-right" className="checkbox-label-clean-right">
-                Acepto que mis datos sean tratados según la política de privacidad
-              </label>
-            </div>
-
-            {/* Botón de envío */}
-            <button 
-              type="submit" 
-              className="submit-btn-clean-right"
-              disabled={isSubmittingContact}
-            >
-              {isSubmittingContact ? 'Enviando...' : 'Enviar mensaje'}
-            </button>
-
-            {/* Mensajes de estado */}
-            {contactSubmitStatus.success && (
-              <div className="success-message-clean-right">
-                ✅ ¡Mensaje enviado correctamente!
-              </div>
-            )}
-            
-            {contactSubmitStatus.error && (
-              <div className="error-message-clean-right">
-                ❌ {contactSubmitStatus.error}
-              </div>
-            )}
-          </form>
-        </div>
-      </div>
-    </div>
-  );
+        );
       
       case 'newsletter':
         return (
@@ -428,7 +435,6 @@ case 'contacto':
             <p>Suscríbete para recibir noticias mensuales sobre ciberseguridad y administración de sistemas</p>
             
             <div className="newsletter-form">
-              {/* Input controlado por estado */}
               <input 
                 type="email" 
                 placeholder="Tu email" 
@@ -437,7 +443,6 @@ case 'contacto':
                 onKeyPress={(e) => e.key === 'Enter' && handleSubscribe()}
               />
               
-              {/* Botón con estado controlado */}
               <button 
                 onClick={handleSubscribe}
                 disabled={!email || !email.includes('@')}
@@ -447,7 +452,7 @@ case 'contacto':
               </button>
               
               <p className="newsletter-note">
-                Al suscribirte, podrás ver un ejemplo del newsletter mensual que recibirás
+                Al suscribirte, podrás ver un ejemplo del newsletter mensual que recibirás, DigitalEvolution no usara tu correo para terceros, ni spam.
               </p>
             </div>
           </div>
@@ -500,11 +505,10 @@ case 'contacto':
     }
   };
 
-  // 🔹 useEffect adicional: Limpieza al desmontar
+  // Limpieza cuando el componente se desmonta
   useEffect(() => {
     return () => {
-      // Función de limpieza (opcional)
-      console.log('🧹 MainContent desmontado');
+      console.log('MainContent desmontado');
     };
   }, []);
 
